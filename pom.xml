@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.hyp.learn</groupId>
+    <groupId>com.github.hanyunpeng0521</groupId>
     <artifactId>floor-drain-spring-boot-starter</artifactId>
     <version>1.0.0</version>
     <name>floor-drain-spring-boot-starter</name>
@@ -17,6 +17,23 @@
         <maven-compiler.version>3.7.0</maven-compiler.version>
     </properties>
 
+    <scm>
+        <connection>scm:git:https://github.com/hanyunpeng0521/floor-drain-spring-boot-starter.git</connection>
+        <developerConnection>scm:git:https://github.com/hanyunpeng0521/floor-drain-spring-boot-starter.git
+        </developerConnection>
+        <url>https://github.com/hanyunpeng0521/floor-drain-spring-boot-starter</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>pingxin</name>
+            <email>m13839441583@163.com</email>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <url>https://hanyunpeng0521.github.io</url>
+        </developer>
+    </developers>
 
     <dependencyManagement>
         <dependencies>
