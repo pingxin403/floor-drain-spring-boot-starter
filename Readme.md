@@ -17,7 +17,7 @@ floor-drain是一款Web防护工具
 
 ```xml
 <dependency>
-    <groupId>com.hyp.learn</groupId>
+    <groupId>com.github.hanyunpeng0521</groupId>
     <artifactId>floor-drain-spring-boot-starter</artifactId>
     <version>1.0.0</version>
 </dependency>
@@ -25,7 +25,7 @@ floor-drain是一款Web防护工具
 
 #### 相关配置
 
-```text
+```properties
 # 连续访问最高阀值，超过该值则认定为恶意操作的IP。单位：次 默认为20
 floordrain.limit.access.threshold=20
 # 间隔时间，在该时间内如果访问次数大于阀值，则记录为恶意IP，否则视为正常访问。单位：毫秒(ms)，默认为 5秒
@@ -37,6 +37,18 @@ floordrain.limit.access.blacklistTime=2592000000
 # 缓存类型，默认为map存储,可选值（map、redis）
 floordrain.limit.access.type=map
 ```
+1. map存储是使用`ConcurrentHashMap`将数据存储在内存。
+2. Redis存储需要配置Redis。
+    ```properties
+    # Redis数据库索引（默认为0）
+    spring.redis.database=0  
+    # Redis服务器地址
+    spring.redis.host=localhost
+    # Redis服务器连接端口
+    spring.redis.port=6379  
+    # Redis服务器连接密码（默认为空）
+    spring.redis.password=
+    ```
 
 #### 开启Braum
 
@@ -147,7 +159,7 @@ public class FloorDrainSpringBootTestApplication {
 3. 在拦截器中使用
     ```java
      @Component
-     public class FloorDrainIntercepter implements HandlerInterceptor {
+     public class FloorDrainIntercepter extends HandlerInterceptorAdapter {
          private static final Logger log = LoggerFactory.getLogger(FloorDrainIntercepter.class);
          private static final int SUCCESS = 1;
          private static List<String> msgList = new ArrayList<>();
@@ -181,4 +193,25 @@ public class FloorDrainSpringBootTestApplication {
              return false;
          }
      }
+    ```
+    在config中加入拦截器
+    ```java
+    @Configuration
+    public class WebConfig extends WebMvcConfigurationSupport {
+    
+        @Bean
+        public FloorDrainIntercepter getSecurityInterceptor() {
+            return new FloorDrainIntercepter();
+        }
+    
+        @Override
+        public void addInterceptors(InterceptorRegistry registry) {
+            InterceptorRegistration addInterceptor = registry.addInterceptor(getSecurityInterceptor());
+    
+            // 排除配置
+            addInterceptor.excludePathPatterns("/403");
+            // 拦截配置
+            addInterceptor.addPathPatterns("/**");
+        }
+    }
     ```

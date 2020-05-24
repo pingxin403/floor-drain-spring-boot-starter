@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
  * hyp create at 20-3-24
  **/
 public class FloorDrainResponse {
+    public static final int SUCCESS = 1;
+    public static final int ERROR = 0;
+
     private int code;
     private String msg;
 
@@ -70,12 +73,12 @@ public class FloorDrainResponse {
     }
 
     public FloorDrainResponse isSuccess() {
-        this.code = 1;
+        this.code = SUCCESS;
         return this;
     }
 
     public FloorDrainResponse isError() {
-        this.code = 0;
+        this.code = ERROR;
         return this;
     }
 

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.hanyunpeng0521.floordrain.annotaion.EnableFloorDrainConfiguration;
 import com.github.hanyunpeng0521.floordrain.property.FloorDrainProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -26,7 +27,7 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 @ConditionalOnProperty(name = "floordrain.limit.access.type", havingValue = "redis")
 public class FloorDrainRedisAutoConfiguration {
 
-    @Bean
+    @Bean("floorDrainRedisTemplate")
     public RedisTemplate redisTemplate(RedisConnectionFactory factory) {
         RedisTemplate template = new RedisTemplate<>();
         template.setConnectionFactory(factory);
