@@ -38,7 +38,7 @@ floordrain.limit.access.blacklistTime=2592000000
 floordrain.limit.access.type=map
 ```
 1. map存储是使用`ConcurrentHashMap`将数据存储在内存。
-2. Redis存储需要配置Redis。
+2. Redis存储需要配置Redis。参考：<https://pingxin0521.gitee.io/px_blog/2019/06/30/Java-SpringBoot-1-4-1/#示例>
     ```properties
     # Redis数据库索引（默认为0）
     spring.redis.database=0  
